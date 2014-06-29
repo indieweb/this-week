@@ -1,0 +1,7 @@
+{
+  "require": {
+    "mf2/mf2": "0.2.*",
+    "phpmailer/phpmailer": "5.2.*",
+    "indieweb/date-formatter": "*"
+  }
+}
