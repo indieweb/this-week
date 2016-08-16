@@ -1,3 +1,5 @@
 vendor
 config.php
+cookies.txt
+mail.log
 
