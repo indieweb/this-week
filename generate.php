@@ -19,11 +19,11 @@ if($endDate->format('l') != 'Friday') {
 
 $endDate->setTime(14,0,0);
 
-echo $endDate->format('Y-m-d H:i:s');
-echo "\n";
-
 $startDate = clone $endDate;
 $startDate->modify('-7 days');
+
+$startDate = $startDate->format('U');
+$endDate = $endDate->format('U');
 //////////////////////////////////////////////////////////////
 
 
