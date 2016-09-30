@@ -9,6 +9,7 @@ if($output) {
 	foreach($output['items'] as $event) {
 		if(in_array('h-event', $event['type'])) {
 			if(array_key_exists('start', $event['properties'])) {
+  			# If there is an end date, use that instead of the start date
 				if(array_key_exists('end', $event['properties']))
 					$eventDate = strtotime($event['properties']['end'][0]);
 				else
@@ -98,7 +99,10 @@ function format_event($event) {
 			}
 			if($photos) {
 				foreach($photos as $photo) {
-					echo '<div><img src="'.Config::$baseURL.'images/'.download_photo($photo, $endDate).'" style="width:100%" class="u-photo"></div>';
+  				$filename = download_photo($photo, $endDate);
+  				if($filename) {
+            echo '<div><img src="'.Config::$baseURL.'images/'.$filename.'" style="width:100%" class="u-photo"></div>';
+          }
 				}
 			}
 		echo '</div>';

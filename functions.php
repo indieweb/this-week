@@ -92,10 +92,27 @@ function download_photo($url, $date) {
 	if(!is_dir($archiveFolder))
 	  mkdir($archiveFolder);
 
-	$filename = $hash . '.jpg';
-	
-	file_put_contents($archiveFolder . '/' . $filename, $response);
-	return date('Y-m-d', $date) . '/' . $filename;
+  $tmp = tempnam(sys_get_temp_dir(), 'iwc-'.$hash);
+
+	file_put_contents($tmp, $response);
+
+  $type = exif_imagetype($tmp);
+  if($type == IMAGETYPE_JPEG)
+    $ext = 'jpg';
+  elseif($type == IMAGETYPE_GIF)
+    $ext = 'gif';
+  else
+    $ext = false;
+
+  if(filesize($tmp) <= 5242880) { # don't download the file if it's more than 5mb (twitter's limit)
+  	$filename = $hash . '.' . $ext;
+  	rename($tmp, $archiveFolder . '/' . $filename);
+  	chmod($archiveFolder . '/' . $filename, 0644);
+  	
+  	return date('Y-m-d', $date) . '/' . $filename;
+  } else {
+    return false;
+  }
 }
 
 function join_with_and($array) {
