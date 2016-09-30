@@ -13,31 +13,67 @@ $params = [
 
 $mf2 = Mf2\fetch($url);
 
-$photo = false;
+$photos = [];
+$gifs = 0; $jpgs = 0;
+# Iterating through the items will always be in chronological order.
+# Later, we'll choose the last N photos.
 foreach($mf2['items'][0]['children'] as $item) {
   if(array_key_exists('photo', $item['properties'])) {
-    $p = $item['properties']['photo'][0];
-    if(preg_match('/images\/([0-9\-]+\/.+\.jpg)$/', $p, $match)) {
-      $photo = $match[1];
-      break;
+    foreach($item['properties']['photo'] as $p) {
+      if(preg_match('/images\/([0-9\-]+\/.+\.(jpg|gif))$/', $p, $match)) {
+        if($match[2] == 'gif') {
+          $type = 'image/gif';
+          $gifs++;
+        } else {
+          $type = 'image/jpeg';
+          $jpgs++;
+        }
+        $photos[] = [
+          'file' => $match[1],
+          'type' => $type,
+        ];
+      }
     }
   }
 }
+$photos = array_reverse($photos);
 
-if($photo) {
-  $params['photo'] = '@' . Config::$publicPath . 'images/' . $photo;
+$headers = [
+	 'Authorization: Bearer '.Config::$twitterSyndicateToken
+];
+
+if(count($photos)) {
+  $multipart = new p3k\Multipart();
+  $multipart->addArray($params);
+  # if you upload a gif to twitter, you can't upload any other photos.
+  # prioritize gifs in this case.
+  if($gifs > 0) {
+    foreach($photos as $i=>$photo) {
+      if($photo['type'] == 'image/gif') {
+        $multipart->addFile('photo[]', Config::$publicPath.'images/'.$photo['file'], $photo['type']);
+        break;
+      }
+    }
+  } else {
+    $num = 0;
+    foreach($photos as $i=>$photo) {
+      if($photo['type'] == 'image/jpeg' && $num < 4) {
+        $multipart->addFile('photo[]', Config::$publicPath.'images/'.$photo['file'], $photo['type']);
+        $num++;
+      }
+    }
+  }
+  $body = $multipart->data();
+  $headers[] = 'Content-type: ' . $multipart->contentType();
 } else {
-  $params = http_build_query($params);
+  $body = http_build_query($params);
 }
 
 $ch = curl_init('https://silo.pub/micropub');
 curl_setopt($ch, CURLOPT_POST, true);
-curl_setopt($ch, CURLOPT_SAFE_UPLOAD, false);
-curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
-curl_setopt($ch, CURLOPT_HTTPHEADER, [
-	'Authorization: Bearer '.Config::$twitterSyndicateToken
-]);
+curl_setopt($ch, CURLOPT_POSTFIELDS, $body);
+curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 $response = curl_exec($ch);
 
-#echo $response;
+echo $response;
