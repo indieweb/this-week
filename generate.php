@@ -5,8 +5,27 @@ chdir(dirname(__FILE__));
 require_once('vendor/autoload.php');
 require_once('functions.php');
 
-$startDate = strtotime('-7 days');
-$endDate = time();
+//////////////////////////////////////////////////////////////
+// Always snap start/end dates to Friday 2pm
+$endDate = new DateTime();
+$endDate->setTimeZone(new DateTimeZone('US/Pacific'));
+
+if($endDate->format('l') != 'Friday') {
+  $endDate->modify('next friday');
+} else {
+  if($endDate->format('G') >= 14) 
+    $endDate->modify('next friday');
+}
+
+$endDate->setTime(14,0,0);
+
+echo $endDate->format('Y-m-d H:i:s');
+echo "\n";
+
+$startDate = clone $endDate;
+$startDate->modify('-7 days');
+//////////////////////////////////////////////////////////////
+
 
 $date = IndieWeb\DateFormatter::format(date('Y-m-d', $startDate), date('Y-m-d', $endDate), false);
 
