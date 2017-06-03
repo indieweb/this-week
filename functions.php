@@ -20,6 +20,7 @@ function mw_request($action, $params) {
     );
     curl_setopt($ch, CURLOPT_URL, Config::$wikiAPI . '?' . http_build_query($params));
   }
+	curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE);
   curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
 
   $json = curl_exec($ch);
@@ -29,6 +30,7 @@ function mw_request($action, $params) {
 function mw_get_raw_page($rev_id) {
   $ch = curl_init();
   curl_setopt($ch, CURLOPT_URL, Config::$wikiAPI . '?oldid=' . $rev_id . '&action=raw');
+	curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE);
   curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
   return curl_exec($ch);
 }
@@ -39,6 +41,7 @@ function mw_entry($title) {
   $ch = curl_init();
   curl_setopt($ch, CURLOPT_URL, Config::$wikiBaseURL . $titleURI);
   curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+	curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE);
   $response = curl_exec($ch);
   $parser = new \mf2\Parser($response, Config::$wikiBaseURL . $titleURI);
   $output = $parser->parse();
@@ -75,6 +78,7 @@ function parse_page($url) {
 	$ch = curl_init();
 	curl_setopt($ch, CURLOPT_URL, $url);
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+	curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE);
 	$response = curl_exec($ch);
 	$parser = new \mf2\Parser($response, $url);
 	return $parser->parse();
@@ -84,6 +88,7 @@ function download_photo($url, $date) {
 	$ch = curl_init();
 	curl_setopt($ch, CURLOPT_URL, $url);
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+	curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE);
 	$response = curl_exec($ch);
 	
 	$hash = sha1($response);
