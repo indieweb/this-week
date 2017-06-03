@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "45d81aa57736310319bd7e1b8aa8202b",
-    "content-hash": "5468c8628d36b9c5ac5d6a4250a4d692",
+    "hash": "7750c284e096beef1330e2c99f012bba",
+    "content-hash": "16b1c45ddf741d1c1fe42ffeee4674fe",
     "packages": [
         {
             "name": "indieweb/date-formatter",
@@ -109,16 +109,16 @@
         },
         {
             "name": "mibe/feedwriter",
-            "version": "v1.0.4",
+            "version": "v1.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mibe/FeedWriter.git",
-                "reference": "73b68701f357e70659e91f74ea8680b8526e413b"
+                "reference": "f4cc748ad8700e36663f08cfeebe7fd39b00eea2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mibe/FeedWriter/zipball/73b68701f357e70659e91f74ea8680b8526e413b",
-                "reference": "73b68701f357e70659e91f74ea8680b8526e413b",
+                "url": "https://api.github.com/repos/mibe/FeedWriter/zipball/f4cc748ad8700e36663f08cfeebe7fd39b00eea2",
+                "reference": "f4cc748ad8700e36663f08cfeebe7fd39b00eea2",
                 "shasum": ""
             },
             "require": {
@@ -127,26 +127,19 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.0.x-dev"
+                    "dev-master": "1.1.x-dev"
                 }
             },
             "autoload": {
-                "classmap": [
-                    "ATOM.php",
-                    "Feed.php",
-                    "Item.php",
-                    "RSS1.php",
-                    "RSS2.php"
-                ]
+                "psr-4": {
+                    "FeedWriter\\": ""
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "GPL-3.0"
             ],
             "authors": [
-                {
-                    "name": "Anis uddin Ahmad"
-                },
                 {
                     "name": "Michael Bemmerl",
                     "email": "mail@mx-server.de"
@@ -175,16 +168,41 @@
                 },
                 {
                     "name": "Julian Bogdani"
+                },
+                {
+                    "name": "Anis Uddin Ahmad",
+                    "email": "anis.programmer@gmail.com"
+                },
+                {
+                    "name": "Cedric Gampert"
+                },
+                {
+                    "name": "Yamek"
+                },
+                {
+                    "name": "thielj"
+                },
+                {
+                    "name": "Pavel Khakhlou"
+                },
+                {
+                    "name": "Daniel"
+                },
+                {
+                    "name": "Tino Goratsch"
                 }
             ],
             "description": "Generate feeds in either RSS 1.0, RSS 2.0 or ATOM formats",
             "homepage": "https://github.com/mibe/FeedWriter",
             "keywords": [
+                "RSS 1.0",
                 "atom",
                 "feed",
-                "rss"
+                "rss",
+                "rss 2.0",
+                "rss2"
             ],
-            "time": "2016-04-17 21:37:55"
+            "time": "2016-11-19 20:47:44"
         },
         {
             "name": "p3k/multipart",
@@ -223,77 +241,17 @@
             "time": "2015-07-16 19:28:02"
         },
         {
-            "name": "phpmailer/phpmailer",
-            "version": "v5.2.16",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/PHPMailer/PHPMailer.git",
-                "reference": "1d85f9ef3ecfc42bbc4f3c70d5e37ca9a65f629a"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/PHPMailer/PHPMailer/zipball/1d85f9ef3ecfc42bbc4f3c70d5e37ca9a65f629a",
-                "reference": "1d85f9ef3ecfc42bbc4f3c70d5e37ca9a65f629a",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.0.0"
-            },
-            "require-dev": {
-                "phpdocumentor/phpdocumentor": "*",
-                "phpunit/phpunit": "4.7.*"
-            },
-            "suggest": {
-                "league/oauth2-google": "Needed for Google XOAUTH2 authentication"
-            },
-            "type": "library",
-            "autoload": {
-                "classmap": [
-                    "class.phpmailer.php",
-                    "class.phpmaileroauth.php",
-                    "class.phpmaileroauthgoogle.php",
-                    "class.smtp.php",
-                    "class.pop3.php",
-                    "extras/EasyPeasyICS.php",
-                    "extras/ntlm_sasl_client.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "LGPL-2.1"
-            ],
-            "authors": [
-                {
-                    "name": "Jim Jagielski",
-                    "email": "jimjag@gmail.com"
-                },
-                {
-                    "name": "Marcus Bointon",
-                    "email": "phpmailer@synchromedia.co.uk"
-                },
-                {
-                    "name": "Andy Prevost",
-                    "email": "codeworxtech@users.sourceforge.net"
-                },
-                {
-                    "name": "Brent R. Matzelle"
-                }
-            ],
-            "description": "PHPMailer is a full-featured email creation and transfer class for PHP",
-            "time": "2016-06-06 09:09:37"
-        },
-        {
             "name": "tantek/cassis",
             "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tantek/cassis.git",
-                "reference": "8ca2edbd01cb8c9228741bd0064ca708ffb0398b"
+                "reference": "a5e4f4c76696c3e31ea7a1c9a1cab74e684eaf13"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tantek/cassis/zipball/8ca2edbd01cb8c9228741bd0064ca708ffb0398b",
-                "reference": "8ca2edbd01cb8c9228741bd0064ca708ffb0398b",
+                "url": "https://api.github.com/repos/tantek/cassis/zipball/a5e4f4c76696c3e31ea7a1c9a1cab74e684eaf13",
+                "reference": "a5e4f4c76696c3e31ea7a1c9a1cab74e684eaf13",
                 "shasum": ""
             },
             "type": "library",
@@ -303,7 +261,7 @@
                 ]
             },
             "notification-url": "https://packagist.org/downloads/",
-            "time": "2016-04-22 00:51:35"
+            "time": "2016-12-13 02:29:08"
         }
     ],
     "packages-dev": [],
