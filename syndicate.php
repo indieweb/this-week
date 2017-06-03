@@ -36,7 +36,7 @@ foreach($mf2['items'][0]['children'] as $item) {
     }
   }
 }
-$photos = array_reverse($photos);
+#$photos = array_reverse($photos);
 
 $headers = [
 	 'Authorization: Bearer '.Config::$twitterSyndicateToken
@@ -69,7 +69,7 @@ if(count($photos)) {
   $body = http_build_query($params);
 }
 
-$ch = curl_init('https://silo.pub/micropub');
+$ch = curl_init('https://silopub.p3k.io/micropub');
 curl_setopt($ch, CURLOPT_POST, true);
 curl_setopt($ch, CURLOPT_POSTFIELDS, $body);
 curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
