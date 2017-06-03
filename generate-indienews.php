@@ -5,8 +5,9 @@ $indienews = ['https://news.indieweb.org/en','https://news.indieweb.org/sv','htt
 $submissions = [];
 
 foreach($indienews as $u) {
-	$entries = parse_page($u);
-	foreach($entries['items'] as $entry) {
+	$feed = parse_page($u);
+	$entries = $feed['items'][0]['children'];
+	foreach($entries as $entry) {
 		if(strtotime($entry['properties']['published'][0]) >= $startDate) {
 			
 			$name = $entry['properties']['name'][0];
@@ -43,6 +44,6 @@ foreach($indienews as $u) {
 }
 
 if(count($submissions)) {
-	echo '<h2>Posts about the IndieWeb</h2>';
+	echo '<h2 id="news">Posts about the IndieWeb</h2>';
 	echo implode("\n", $submissions);
 }
