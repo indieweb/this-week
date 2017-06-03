@@ -63,7 +63,7 @@ function format_event($event) {
   			$locname = '';
 
   			if(array_key_exists('locality', $loc['properties'])) {
-  			  $locname .= strtoupper($loc['properties']['locality'][0]);
+  			  $locname .= mb_strtoupper($loc['properties']['locality'][0]);
   			  if(array_key_exists('region', $loc['properties']))
     			  $locname .= ', ' . ($loc['properties']['region'][0]);
   			  elseif(array_key_exists('country-name', $loc['properties']))
