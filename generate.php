@@ -6,18 +6,23 @@ require_once('vendor/autoload.php');
 require_once('functions.php');
 
 //////////////////////////////////////////////////////////////
-// Always snap start/end dates to Friday 2pm
-$endDate = new DateTime();
-$endDate->setTimeZone(new DateTimeZone('US/Pacific'));
+// Always snap start/end dates to Friday 3pm
 
-if($endDate->format('l') != 'Friday') {
-  $endDate->modify('next friday');
+if(array_key_exists(2, $argv)) {
+  $endDate = new DateTime($argv[2], new DateTimeZone('US/Pacific'));
 } else {
-  if($endDate->format('G') >= 14) 
+  $endDate = new DateTime();
+  $endDate->setTimeZone(new DateTimeZone('US/Pacific'));
+  
+  if($endDate->format('l') != 'Friday') {
     $endDate->modify('next friday');
+  } else {
+    if($endDate->format('G') >= 15) 
+      $endDate->modify('next friday');
+  }
 }
 
-$endDate->setTime(14,0,0);
+$endDate->setTime(15,0,0);
 
 $startDate = clone $endDate;
 $startDate->modify('-7 days');
@@ -26,12 +31,12 @@ $startDate = $startDate->format('U');
 $endDate = $endDate->format('U');
 //////////////////////////////////////////////////////////////
 
-
 $date = IndieWeb\DateFormatter::format(date('Y-m-d', $startDate), date('Y-m-d', $endDate), false);
 
 ob_start();
 require('generate-header.php');
 require('generate-events-summary.php');
+require('generate-podcasts.php');
 require('generate-indienews.php');
 require('generate-wiki-summary.php');
 $html = ob_get_clean();
@@ -82,10 +87,10 @@ if(isset($argv) && is_array($argv) && isset($argv[1])) {
 			$msg = 'Just generated the first draft of this week\'s newsletter! '.Config::$baseURL.date('Y-m-d', $endDate).'.html I\'ll generate a draft again tomorrow, so please add to it before then! https://indieweb.org/this-week#How_to';
 			break;
 		case 2:
-			$msg = 'Just generated this week\'s newsletter! You still have a few minutes to make changes, and I\'ll re-generate it 10 minutes before it gets sent out at 2pm Pacific time. '.Config::$baseURL.date('Y-m-d', $endDate).'.html';
+			$msg = 'Just generated this week\'s newsletter! You still have a few minutes to make changes, and I\'ll re-generate it 10 minutes before it gets sent out at 3pm Pacific time. '.Config::$baseURL.date('Y-m-d', $endDate).'.html';
 			break;
 		case 3:
-			$msg = 'Generated the final version of the newsletter! This will be sent out at 2pm Pacific time. '.Config::$baseURL.date('Y-m-d', $endDate).'.html';
+			$msg = 'Generated the final version of the newsletter! This will be sent out at 3pm Pacific time. '.Config::$baseURL.date('Y-m-d', $endDate).'.html';
 			break;
 	}
 }
