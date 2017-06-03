@@ -19,9 +19,11 @@
 </head>
 <body>
 <img src="/this-week/images/this-week-header.png" style="width:100%;">
+<main class="e-content">
 <?php
 	echo $html;
 ?>
+</main>
 <a href="" class="u-url"></a>
 </body>
 </html>
