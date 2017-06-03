@@ -46,6 +46,7 @@
 	
 	$new = array();
 	$changed = array();
+	$newpeople = array();
 	$toc = array(
 	  'new' => array(),
 	  'edit' => array()
@@ -162,15 +163,20 @@ if($title == 'site44') {
 	
 ?>
 
-<h2>New Community Members</h2>
-
+<?php if(count($newpeople)): ?>
+<h2 id="new-community-members">New Community Members</h2>
 <?= implode("\n", $newpeople) ?>
+<?php endif; ?>
 
-<h2>New Wiki Pages</h2>
-
+<?php if(count($new)): ?>
+<h2 id="new-wiki-pages">New Wiki Pages</h2>
 <?= implode("\n", $new) ?>
+<?php endif; ?>
 
-<h3>Changed Wiki Pages</h3>
+<?php if(count($changed)): ?>
+<h3 id="changed-wiki-pages">Changed Wiki Pages</h3>
 <ul>
 <?= implode("\n", $changed) ?>
 </ul>
+<?php endif; ?>
+
