@@ -74,7 +74,8 @@
 
 		// Summary
 		if($page['type'] == 'new') {
-			if(preg_match('/^user:/i', $title) && !preg_match('/\.css$/i', $title))
+			// Subpages of user-pages are excluded (e.g. custom CSS or personal test pages)
+			if(preg_match('/^user:/i', $title) && strpos($title, '/') === false)
 			    $page['isuser'] = true;
 			else
 			    $page['isuser'] = false;
