@@ -8,7 +8,7 @@ foreach($indienews as $u) {
 	$feed = parse_page($u);
 	$entries = $feed['items'][0]['children'];
 	foreach($entries as $entry) {
-		if(strtotime($entry['properties']['published'][0]) >= $startDate) {
+		if(isset($entry['properties']['published'][0]) && strtotime($entry['properties']['published'][0]) >= $startDate) {
 			
 			$name = $entry['properties']['name'][0];
 			$url = $entry['properties']['url'][0];
@@ -31,7 +31,7 @@ foreach($indienews as $u) {
 				  echo '';
 				echo '<div>';
 				  echo 'by <a href="'.$author.'" class="p-author h-card">'.$author_name.'</a>';
-				  echo ' on <a href="'.$url.'"><time class="dt-published" datetime="'.$published->format('c').'">'.$published->format('F j, g:ia').'</time></a>';
+				  echo ' on <a href="'.$url.'"><time class="dt-published" datetime="'.$published->format('c').'">'.$published->format('F j').'</time></a>';
 			  echo '</div>';
 				if($content) {
 					echo '<div>'.auto_link($content).'</div>';
