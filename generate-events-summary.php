@@ -10,7 +10,7 @@ if($output) {
 		if(in_array('h-event', $event['type'])) {
 			if(array_key_exists('start', $event['properties'])) {
   			# If there is an end date, use that instead of the start date
-				if(array_key_exists('end', $event['properties']))
+				if(array_key_exists('end', $event['properties']) && strtotime($event['properties']['end'][0]) !== false)
 					$eventDate = strtotime($event['properties']['end'][0]);
 				else
 					$eventDate = strtotime($event['properties']['start'][0]);
@@ -42,6 +42,7 @@ function format_event($event) {
 	$summary = false;
 	if($url) {
 		$details = parse_page($url);
+
 		if($details && count($details['items']) && ($fullEvent = $details['items'][0])) {
 			if(array_key_exists('photo', $fullEvent['properties'])) {
 				$photos = array_merge($photos, $fullEvent['properties']['photo']);
