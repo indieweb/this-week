@@ -104,6 +104,8 @@ function download_photo($url, $date) {
   $type = exif_imagetype($tmp);
   if($type == IMAGETYPE_JPEG)
     $ext = 'jpg';
+  elseif($type == IMAGETYPE_PNG)
+    $ext = 'png';
   elseif($type == IMAGETYPE_GIF)
     $ext = 'gif';
   else
