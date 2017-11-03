@@ -45,5 +45,6 @@ foreach($indienews as $u) {
 
 if(count($submissions)) {
 	echo '<h2 id="news">Posts about the IndieWeb</h2>';
+  	echo '<p>From <a href="https://news.indieweb.org/en">news.indieweb.org</a>:</p>'; 	
 	echo implode("\n", $submissions);
 }

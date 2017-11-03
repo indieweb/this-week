@@ -166,16 +166,19 @@ if($title == 'site44') {
 
 <?php if(count($newpeople)): ?>
 <h2 id="new-community-members">New Community Members</h2>
+<p>From <a href="https://indieweb.org/wiki/index.php?title=Special%3ANewPages&namespace=2">IndieWeb Wiki: New User Pages</a>:</p>
 <?= implode("\n", $newpeople) ?>
 <?php endif; ?>
 
 <?php if(count($new)): ?>
 <h2 id="new-wiki-pages">New Wiki Pages</h2>
+<p>From <a href="https://indieweb.org/wiki/index.php?title=Special%3ANewPages&namespace=0">IndieWeb Wiki: New Pages</a>:</p>
 <?= implode("\n", $new) ?>
 <?php endif; ?>
 
 <?php if(count($changed)): ?>
 <h3 id="changed-wiki-pages">Changed Wiki Pages</h3>
+<p>From <a href="https://indieweb.org/wiki/index.php?namespace=0&title=Special%3ARecentChanges">IndieWeb Wiki: Recent Changes</a>:</p>
 <ul>
 <?= implode("\n", $changed) ?>
 </ul>

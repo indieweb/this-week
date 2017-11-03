@@ -141,6 +141,7 @@ function format_event($event) {
 
 if(count($past)) {
 	echo '<h2 id="recent-events">Recent Events</h2>';
+	echo '<p>From <a href="https://indieweb.org/events#Recent">indieweb.org/events#Recent</a>:</p>';
 	foreach($past as $event) {
 		echo format_event($event);
 	}
@@ -148,6 +149,7 @@ if(count($past)) {
 
 if(count($future)) {
 	echo '<h2 id="upcoming-events">Upcoming Events</h2>';
+	echo '<p>From <a href="https://indieweb.org/events#Upcoming">indieweb.org/events#Upcoming</a>:</p>';
 	foreach($future as $event) {
 		echo format_event($event);
 	}
