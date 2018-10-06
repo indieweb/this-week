@@ -16,6 +16,7 @@
 	margin-bottom: 1em;
   }
 </style>
+<link rel="webmention" href="https://webmention.io/indiewebcamp/webmention">
 </head>
 <body>
 <img src="/this-week/images/this-week-header.png" style="width:100%;">
