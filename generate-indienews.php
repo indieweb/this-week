@@ -4,6 +4,8 @@ $indienews = ['https://news.indieweb.org/en','https://news.indieweb.org/sv','htt
 
 $submissions = [];
 
+/* commenting out until it can be fixed to *only* pull IndieNews submissions that are explicitly hashtagged/category "indieweb" 
+
 foreach($indienews as $u) {
 	$feed = parse_page($u);
 	$entries = $feed['items'][0]['children'];
@@ -42,6 +44,8 @@ foreach($indienews as $u) {
 		}
 	}
 }
+
+end commenting out */
 
 if(count($submissions)) {
 	echo '<h2 id="news">Posts about the IndieWeb</h2>';
