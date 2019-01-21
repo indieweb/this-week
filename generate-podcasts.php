@@ -20,17 +20,19 @@ foreach($sources as $u) {
 			$url = $entry['properties']['url'][0];
 			$published = new DateTime($published);
 
-      $content = $entry['properties']['content'][0]['html'];
+      #$content = $entry['properties']['content'][0]['html'];
 			
 			ob_start();
 			echo '<div style="margin-bottom: 1em;" class="h-entry">';
 		    if($name)
 					echo '<div style="font-size:1.3em;font-weight:bold;"><a href="'.$url.'" class="u-url p-name">'.$name.'</a></div>';
 				else
-				  echo '';
+				  echo '<a href="'.$url.'" class="u-url">'.$url.'</a>';
+				/*
 				if($content) {
 					echo '<div class="e-content">'.$content.'</div>';
 				}
+				*/
 			echo '</div>'."\n";
 			$submissions[] = ob_get_clean();	
 		}
