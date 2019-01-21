@@ -4,7 +4,8 @@
     "indieweb/date-formatter": "*",
     "mibe/feedwriter": "*",
     "tantek/cassis": "dev-master",
-    "p3k/multipart": "*"
+    "p3k/multipart": "*",
+    "p3k/utils": "^1.0"
   },
   "autoload": {
     "files": [

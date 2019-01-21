@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "7750c284e096beef1330e2c99f012bba",
-    "content-hash": "16b1c45ddf741d1c1fe42ffeee4674fe",
+    "hash": "445d72466243339925fcc25a702d8e37",
+    "content-hash": "34588de5afef2142887da240c691edfa",
     "packages": [
         {
             "name": "indieweb/date-formatter",
@@ -241,6 +241,51 @@
             "time": "2015-07-16 19:28:02"
         },
         {
+            "name": "p3k/utils",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/aaronpk/p3k-utils.git",
+                "reference": "4f2ab159bae3d79a21fb02f30a03eed3d57aab96"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/aaronpk/p3k-utils/zipball/4f2ab159bae3d79a21fb02f30a03eed3d57aab96",
+                "reference": "4f2ab159bae3d79a21fb02f30a03eed3d57aab96",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.8.13",
+                "predis/predis": "1.1.*"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/global.php",
+                    "src/url.php",
+                    "src/utils.php",
+                    "src/date.php",
+                    "src/cache.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Aaron Parecki",
+                    "homepage": "https://aaronparecki.com"
+                }
+            ],
+            "description": "Some helpful functions used by https://p3k.io projects",
+            "homepage": "https://github.com/aaronpk/p3k-utils",
+            "time": "2017-04-30 16:14:20"
+        },
+        {
             "name": "tantek/cassis",
             "version": "dev-master",
             "source": {
@@ -250,7 +295,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tantek/cassis/zipball/a5e4f4c76696c3e31ea7a1c9a1cab74e684eaf13",
+                "url": "https://api.github.com/repos/tantek/cassis/zipball/f780aba973dfc1a2f6fe6053c3b984435c447d35",
                 "reference": "a5e4f4c76696c3e31ea7a1c9a1cab74e684eaf13",
                 "shasum": ""
             },
