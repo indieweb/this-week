@@ -40,6 +40,7 @@ function format_event($event) {
 	// Go fetch the event URL and look for a photo
 	$photos = [];
 	$summary = false;
+	
 	if($url) {
 		$details = parse_page($url);
 
@@ -53,6 +54,18 @@ function format_event($event) {
 			}
 			$summary = array_key_exists('summary', $fullEvent['properties']) ? $fullEvent['properties']['summary'] : false;
 		}
+	}
+	
+	// If no photos were found on the detail page, check for a photo in the h-event from the list
+	if(count($photos) == 0) {
+  	if(isset($event['properties']['photo'][0])) {
+    	$photos[] = $event['properties']['photo'][0];
+  	}
+	}
+	
+	// Override the event name from the detail page
+	if($fullEvent && array_key_exists('name', $fullEvent['properties'])) {
+  	$name = $fullEvent['properties']['name'][0];
 	}
 
 	if($fullEvent && array_key_exists('location', $fullEvent['properties'])) {
@@ -95,6 +108,7 @@ function format_event($event) {
 	}
 
 	if($name) {
+  	echo "\n\n";
 		echo '<div style="margin-bottom: 1em;" class="h-event">';
 			echo '<div style="font-size: 1.3em; font-weight: bold;" class="p-name">' . ($url ? '<a href="'.$url.'" class="u-url">'.$name.'</a>' : $name) . '</div>' . "\n";
 			if($start) {
@@ -134,6 +148,7 @@ function format_event($event) {
 				}
 			}
 		echo '</div>';
+		echo "\n";
 	}
 	
 	return ob_get_clean();
