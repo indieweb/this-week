@@ -59,7 +59,7 @@ function format_event($event) {
 	// If no photos were found on the detail page, check for a photo in the h-event from the list
 	if(count($photos) == 0) {
   	if(isset($event['properties']['photo'][0])) {
-    	$photos[] = $event['properties']['photo'][0];
+    	$photos = $event['properties']['photo'];
   	}
 	}
 	
