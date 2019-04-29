@@ -19,7 +19,7 @@
 <link rel="webmention" href="https://webmention.io/indiewebcamp/webmention">
 </head>
 <body>
-<img src="/this-week/images/this-week-header.png" style="width:100%;">
+<a href="https://indieweb.org/this-week-in-the-indieweb"><img src="/this-week/images/this-week-header.png" style="width:100%;" alt="This Week in the IndieWeb" /></a>
 <main class="e-content">
 <?php
 	echo $html;
