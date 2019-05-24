@@ -27,6 +27,8 @@ $endDate->setTime(15,0,0);
 $startDate = clone $endDate;
 $startDate->modify('-7 days');
 
+echo $startDate->format('c').' to '.$endDate->format('c')."\n";
+
 $startDate = $startDate->format('U');
 $endDate = $endDate->format('U');
 //////////////////////////////////////////////////////////////
@@ -82,16 +84,20 @@ $localtime->setTimeZone(new DateTimeZone('America/Los_Angeles'));
 $msg = false;
 
 if(isset($argv) && is_array($argv) && isset($argv[1])) {
+	$newsletterURL = Config::$baseURL.date('Y-m-d', $endDate).'.html';
 	switch($argv[1]) {
 		case 1:
-			$msg = 'Just generated the first draft of this week\'s newsletter! '.Config::$baseURL.date('Y-m-d', $endDate).'.html I\'ll generate a draft again tomorrow, so please add to it before then! https://indieweb.org/this-week#How_to';
+			$msg = 'Just generated the first draft of this week\'s newsletter! '.$newsletterURL.' I\'ll generate a draft again tomorrow, so please add to it before then! https://indieweb.org/this-week#How_to';
 			break;
 		case 2:
-			$msg = 'Just generated this week\'s newsletter! You still have a few minutes to make changes, and I\'ll re-generate it 10 minutes before it gets sent out at 3pm Pacific time. '.Config::$baseURL.date('Y-m-d', $endDate).'.html';
+			$msg = 'Just generated this week\'s newsletter! You still have a few minutes to make changes, and I\'ll re-generate it 10 minutes before it gets sent out at 3pm Pacific time. '.$newsletterURL;
 			break;
 		case 3:
-			$msg = 'Generated the final version of the newsletter! This will be sent out at 3pm Pacific time. '.Config::$baseURL.date('Y-m-d', $endDate).'.html';
+			$msg = 'Generated the final version of the newsletter! This will be sent out at 3pm Pacific time. '.$newsletterURL;
 			break;
+		case 4:
+			$msg = 'Generated a new draft of the newsletter! '.$newsletterURL;
+			break; 
 	}
 }
 
