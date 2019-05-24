@@ -25,7 +25,7 @@ foreach($sources as $u) {
 			ob_start();
 			echo '<div style="margin-bottom: 1em;" class="h-entry">';
 		    if($name)
-					echo '<div style="font-size:1.3em;font-weight:bold;"><a href="'.$url.'" class="u-url p-name">'.$name.'</a></div>';
+					echo '<div style="font-size:1.3em;font-weight:bold;"><a href="'.$url.'" class="u-url p-name">'.e($name).'</a></div>';
 				else
 				  echo '<a href="'.$url.'" class="u-url">'.$url.'</a>';
 				/*

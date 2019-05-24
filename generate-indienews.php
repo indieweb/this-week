@@ -27,11 +27,11 @@ foreach($indienews as $u) {
 			ob_start();
 			echo '<div style="margin-bottom: 1em;" class="h-entry">';
 		    if($name)
-					echo '<div style="font-size:1.3em;font-weight:bold;"><a href="'.$url.'" class="u-url p-name">'.$name.'</a></div>';
+					echo '<div style="font-size:1.3em;font-weight:bold;"><a href="'.$url.'" class="u-url p-name">'.e($name).'</a></div>';
 				else
 				  echo '';
 				echo '<div>';
-				  echo 'by <a href="'.$author.'" class="p-author h-card">'.$author_name.'</a>';
+				  echo 'by <a href="'.$author.'" class="p-author h-card">'.e($author_name).'</a>';
 				  echo ' on <a href="'.$url.'"><time class="dt-published" datetime="'.$published->format('c').'">'.$published->format('F j').'</time></a>';
 			  echo '</div>';
 				if($content) {

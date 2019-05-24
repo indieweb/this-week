@@ -92,7 +92,7 @@ function format_event($event) {
   			$locations[] = $loc['properties']['name'][0];
 			}
 		}
-		$location = '<ul>' . implode("\n", array_map(function($e){ return '<li>'.$e.'</li>'; }, $locations)) . '</ul>';
+		$location = '<ul>' . implode("\n", array_map(function($e){ return '<li>'.e($e).'</li>'; }, $locations)) . '</ul>';
 	} elseif(array_key_exists('location', $event['properties'])) {
 		$locations = [];
 		foreach($event['properties']['location'] as $loc) {
@@ -110,7 +110,7 @@ function format_event($event) {
 	if($name) {
   	echo "\n\n";
 		echo '<div style="margin-bottom: 1em;" class="h-event">';
-			echo '<div style="font-size: 1.3em; font-weight: bold;" class="p-name">' . ($url ? '<a href="'.$url.'" class="u-url">'.$name.'</a>' : $name) . '</div>' . "\n";
+			echo '<div style="font-size: 1.3em; font-weight: bold;" class="p-name">' . ($url ? '<a href="'.$url.'" class="u-url">'.e($name).'</a>' : e($name)) . '</div>' . "\n";
 			if($start) {
 				try {
 					$start = new DateTime($start);

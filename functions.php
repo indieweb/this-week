@@ -133,3 +133,7 @@ function join_with_and($array) {
 	
 	return implode(', ', $array) . ' and ' . $last;
 }
+
+function e($text) {
+  return htmlspecialchars($text);
+}
