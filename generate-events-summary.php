@@ -37,7 +37,7 @@ function format_event($event) {
 
   $fullEvent = false;
 
-	// Go fetch the event URL and look for a photo
+	// Go fetch the event URL and look for photos
 	$photos = [];
 	$summary = false;
 	
@@ -144,6 +144,8 @@ function format_event($event) {
   				$filename = download_photo($photo, $endDate);
   				if($filename) {
             echo '<div><img src="'.Config::$baseURL.'images/'.$filename.'" style="width:100%" class="u-photo"></div>';
+          } else {
+            echo '<!-- failed to download photo, is it over 5mb? '.htmlspecialchars($photo).' -->';
           }
 				}
 			}
