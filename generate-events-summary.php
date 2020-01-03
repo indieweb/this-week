@@ -1,12 +1,18 @@
 <?php
 
-$output = parse_page('https://indieweb.org/events');
+$output = parse_page('https://events.indieweb.org/');
+$events1 = $output['items'][0]['children'] ?? [];
+
+$output = parse_page('https://events.indieweb.org/archive');
+$events2 = $output['items'][0]['children'] ?? [];
+
+$eventslist = array_merge($events1, $events2);
 
 $past = [];
 $future = [];
 
 if($output) {
-	foreach($output['items'] as $event) {
+	foreach($eventslist as $event) {
 		if(in_array('h-event', $event['type'])) {
 			if(array_key_exists('start', $event['properties'])) {
   			# If there is an end date, use that instead of the start date
@@ -23,6 +29,7 @@ if($output) {
 		}
 	}
 }
+
 
 function format_event($event) {
   global $endDate;
@@ -158,7 +165,7 @@ function format_event($event) {
 
 if(count($past)) {
 	echo '<h2 id="recent-events">Recent Events</h2>';
-	echo '<p>From <a href="https://indieweb.org/events#Recent">indieweb.org/events#Recent</a>:</p>';
+	echo '<p>From <a href="https://events.indieweb.org/archive">events.indieweb.org/archive</a>:</p>';
 	foreach($past as $event) {
 		echo format_event($event);
 	}
@@ -166,7 +173,7 @@ if(count($past)) {
 
 if(count($future)) {
 	echo '<h2 id="upcoming-events">Upcoming Events</h2>';
-	echo '<p>From <a href="https://indieweb.org/events#Upcoming">indieweb.org/events#Upcoming</a>:</p>';
+	echo '<p>From <a href="https://events.indieweb.org/">events.indieweb.org</a>:</p>';
 	foreach($future as $event) {
 		echo format_event($event);
 	}
