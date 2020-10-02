@@ -109,7 +109,7 @@ function download_photo($url, $date) {
   elseif($type == IMAGETYPE_GIF)
     $ext = 'gif';
   else
-    $ext = false;
+    $ext = 'jpg';
 
   if(filesize($tmp) <= 5242880) { # don't download the file if it's more than 5mb (twitter's limit)
   	$filename = $hash . '.' . $ext;
