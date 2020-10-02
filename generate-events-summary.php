@@ -10,21 +10,25 @@ $eventslist = array_merge($events1, $events2);
 
 $past = [];
 $future = [];
+$urls = [];
 
 if($output) {
 	foreach($eventslist as $event) {
 		if(in_array('h-event', $event['type'])) {
-			if(array_key_exists('start', $event['properties'])) {
-  			# If there is an end date, use that instead of the start date
-				if(array_key_exists('end', $event['properties']) && strtotime($event['properties']['end'][0]) !== false)
-					$eventDate = strtotime($event['properties']['end'][0]);
-				else
-					$eventDate = strtotime($event['properties']['start'][0]);
-				if($eventDate >= $startDate && $eventDate <= $endDate) {
-					$past[] = $event;
-				} elseif($eventDate >= $endDate && $eventDate <= $endDate + 86400*60) {
-					$future[] = $event;
+			if(!in_array($event['properties']['url'][0], $urls)) {
+				if(array_key_exists('start', $event['properties'])) {
+  				# If there is an end date, use that instead of the start date
+					if(array_key_exists('end', $event['properties']) && strtotime($event['properties']['end'][0]) !== false)
+						$eventDate = strtotime($event['properties']['end'][0]);
+					else
+						$eventDate = strtotime($event['properties']['start'][0]);
+					if($eventDate >= $startDate && $eventDate <= $endDate) {
+						$past[] = $event;
+					} elseif($eventDate >= $endDate && $eventDate <= $endDate + 86400*60) {
+						$future[] = $event;
+					}
 				}
+				$urls[] = $event['properties']['url'][0];
 			}
 		}
 	}
@@ -178,3 +182,4 @@ if(count($future)) {
 		echo format_event($event);
 	}
 }
+
