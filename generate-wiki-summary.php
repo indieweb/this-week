@@ -74,92 +74,75 @@
 
 		// Summary
 		if($page['type'] == 'new') {
+
 			// Subpages of user-pages are excluded (e.g. custom CSS or personal test pages)
 			if(preg_match('/^user:/i', $title) && strpos($title, '/') === false)
-			    $page['isuser'] = true;
+				$page['isuser'] = true;
 			else
-			    $page['isuser'] = false;
+				$page['isuser'] = false;
+
+			// Hide user: and template: pages (only include user pages and other pages that don't begin with user: or template:)
+			if($page['isuser']
+			 || (!$page['isuser'] && !preg_match('/^(user|template):/i', $title))) {
 			
-			echo '<h3><a href="' . Config::$wikiBaseURL . pageTitleToURL($title) . '">' . $title . '</a></h3>';
-if($title == 'site44') {
-	#echo '<pre>'; print_r($page); echo '</pre>';
-}
-			$item = mw_entry($title);
-			if($item && array_key_exists('summary', $item['properties'])) {
-			    echo '<p>' . $item['properties']['summary'][0] . '</p>';
-			}
-
-		    $first_edit = $page['changes'][count($page['changes'])-1];
-			if(preg_match('/(prompted by .+) (https:\/\/indieweb(?:camp.com|.org)[^ ]+)? ?and dfn added by (.+)/', $first_edit['comment'], $match)) {
-				$by = $match[3];
-			} else {
-				$by = $first_edit['user'];
-			}
-
-			$authors = array_diff($authors, [strtolower($by)]);
-			$authors_str = strtolower(join_with_and($authors));
-
-			echo '<p style="font-size:0.8em;">';
-				echo 'Created by ' . $by . ' on ' . date('l', strtotime($first_edit['timestamp']));
-				$num_changes = count($page['changes'])-1;
-				if(count($authors) > 1) {
-					echo ' with ' . $num_changes . ' more edit'.($num_changes == 1 ? '' : 's').' by ' . $authors_str;
+				echo '<h3><a href="' . Config::$wikiBaseURL . pageTitleToURL($title) . '">' . $title . '</a></h3>';
+	
+				$item = mw_entry($title);
+				if($item && array_key_exists('summary', $item['properties'])) {
+				    echo '<p>' . $item['properties']['summary'][0] . '</p>';
+				}
+	
+			    $first_edit = $page['changes'][count($page['changes'])-1];
+				if(preg_match('/(prompted by .+) (https:\/\/indieweb(?:camp.com|.org)[^ ]+)? ?and dfn added by (.+)/', $first_edit['comment'], $match)) {
+					$by = $match[3];
 				} else {
-					if(count($page['changes']) > 1) {
-						echo ' and edited ' . $num_changes . ' more time'.($num_changes == 1 ? '' : 's');
+					$by = $first_edit['user'];
+				}
+	
+				$authors = array_diff($authors, [strtolower($by)]);
+				$authors_str = strtolower(join_with_and($authors));
+	
+				echo '<p style="font-size:0.8em;">';
+					echo 'Created by ' . $by . ' on ' . date('l', strtotime($first_edit['timestamp']));
+					$num_changes = count($page['changes'])-1;
+					if(count($authors) > 1) {
+						echo ' with ' . $num_changes . ' more edit'.($num_changes == 1 ? '' : 's').' by ' . $authors_str;
+					} else {
+						if(count($page['changes']) > 1) {
+							echo ' and edited ' . $num_changes . ' more time'.($num_changes == 1 ? '' : 's');
+						}
 					}
-				}
-			echo '</p>';
-
-		} else {
+				echo '</p>';
+			}
 			
-			$authors_str = strtolower(join_with_and($authors));
-	
-			$query = str_replace('&','&amp;',http_build_query(array(
-				'title' => $title,
-				'action' => 'historysubmit',
-				'diff' => $page['latestid'],
-				'oldid' => $page['oldestid']
-			)));
-			
-			echo '<li><b><a href="' . Config::$wikiBaseURL . pageTitleToURL($title) . '">' . $title . '</a></b> <a href="' . Config::$wikiURL . '?' . $query . '">' . count($page['changes']) . ' edit'.(count($page['changes']) == 1 ? '' : 's').'</a> by ' . $authors_str . '</li>';
-		}
-
-		/*
-		// edits
-		echo '<div style="font-size:0.8em;">';
-		echo '<ul>';
-		foreach(array_reverse($page['changes']) as $change) {
-			$query = str_replace('&','&amp;',http_build_query(array(
-				'title' => $title,
-				'action' => 'historysubmit',
-				'diff' => $change['curid'],
-				'oldid' => $change['oldid']
-			)));
-			echo '<li>';
-				echo '<a href="' . Config::$wikiURL . '?' . $query . '">' . date('D, M j', strtotime($change['timestamp'])) . '</a>';
-				if(preg_match('/(prompted by .+) (https:\/\/indiewebcamp.com[^ ]+) and dfn added by (.+)/', $change['comment'], $match)) {
-					echo ' ' . $match[3];
-					echo ' <i><a href="' . $match[2] . '">' . $match[1] . '</a></i>';
-				} else {
-					echo ' ' . strtolower($change['user']);
-					echo ' <i>' . htmlspecialchars($change['comment']) . '</i>';
-				}
-			echo '</li>';
-		}
-		echo '</ul>';
-		echo '</div>'; // small font size
-		*/
-	
-		if($page['type'] == 'new') {
-			if($page['isuser'])
-				$newpeople[] = ob_get_clean();
-			else
-				$new[] = ob_get_clean();
 		} else {
-			$changed[] = ob_get_clean();
+			if(count($changed) < 10) {
+				if(!preg_match('/^(user|template|mediawiki):/i', $title)) {
+					$authors_str = strtolower(join_with_and($authors));
+			
+					$query = str_replace('&','&amp;',http_build_query(array(
+						'title' => $title,
+						'action' => 'historysubmit',
+						'diff' => $page['latestid'],
+						'oldid' => $page['oldestid']
+					)));
+
+					echo '<li><b><a href="' . Config::$wikiBaseURL . pageTitleToURL($title) . '">' . $title . '</a></b> <a href="' . Config::$wikiURL . '?' . $query . '">' . count($page['changes']) . ' edit'.(count($page['changes']) == 1 ? '' : 's').'</a> by ' . $authors_str . '</li>';
+				}
+			}
 		}
-		
+	
+		$content = ob_get_clean();
+		if(trim($content)) {
+			if($page['type'] == 'new') {
+				if($page['isuser'])
+					$newpeople[] = $content;
+				else
+					$new[] = $content;
+			} else {
+				$changed[] = $content;
+			}
+		}
 	}
 	
 ?>
@@ -171,13 +154,13 @@ if($title == 'site44') {
 <?php endif; ?>
 
 <?php if(count($new)): ?>
-<h2 id="new-wiki-pages">New Wiki Pages</h2>
+<h2 id="new-wiki-pages">Top New Wiki Pages</h2>
 <p>From <a href="https://indieweb.org/wiki/index.php?title=Special%3ANewPages&namespace=0">IndieWeb Wiki: New Pages</a>:</p>
 <?= implode("\n", $new) ?>
 <?php endif; ?>
 
 <?php if(count($changed)): ?>
-<h3 id="changed-wiki-pages">Changed Wiki Pages</h3>
+<h3 id="changed-wiki-pages">Top Edited Wiki Pages</h3>
 <p>From <a href="https://indieweb.org/wiki/index.php?namespace=0&title=Special%3ARecentChanges">IndieWeb Wiki: Recent Changes</a>:</p>
 <ul>
 <?= implode("\n", $changed) ?>
