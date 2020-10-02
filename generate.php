@@ -22,7 +22,7 @@ if(array_key_exists(2, $argv)) {
   }
 }
 
-$endDate->setTime(14,50,0);
+$endDate->setTime(14,59,0);
 
 $startDate = clone $endDate;
 $startDate->modify('-7 days');
