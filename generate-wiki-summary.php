@@ -83,7 +83,7 @@
 
 			// Hide user: and template: pages (only include user pages and other pages that don't begin with user: or template:)
 			if($page['isuser']
-			 || (!$page['isuser'] && !preg_match('/^(user|template):/i', $title))) {
+			 || (!$page['isuser'] && !preg_match('/^(user|template|category):/i', $title))) {
 			
 				echo '<h3><a href="' . Config::$wikiBaseURL . pageTitleToURL($title) . '">' . $title . '</a></h3>';
 	
@@ -117,7 +117,7 @@
 			
 		} else {
 			if(count($changed) < 10) {
-				if(!preg_match('/^(user|template|mediawiki):/i', $title)) {
+				if(!preg_match('/^(user|template|mediawiki|category):/i', $title)) {
 					$authors_str = strtolower(join_with_and($authors));
 			
 					$query = str_replace('&','&amp;',http_build_query(array(
