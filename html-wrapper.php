@@ -2,6 +2,7 @@
 <html class="h-entry">
 <head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title class="p-name">This Week in the IndieWeb: <?= IndieWeb\DateFormatter::format(date('Y-m-d', $startDate), date('Y-m-d', $endDate), false) ?></title>
 <style type="text/css">
   body { 
