@@ -137,3 +137,95 @@ function join_with_and($array) {
 function e($text) {
   return htmlspecialchars($text);
 }
+
+## Events
+
+/**
+ * For text summaries in the form "event_name was..." or "event_name is...",
+ * return the event_name. If " was " or " is " are not found,
+ * return the $fallback value
+ */
+function eventNameFromSummary(string $summary, string $fallback) {
+	if (($pos = strpos($summary, ' was ')) !== false) {
+		return substr($summary, 0, $pos);
+	}
+
+	if (($pos = strpos($summary, ' is ')) !== false) {
+		return substr($summary, 0, $pos);
+	}
+
+	return $fallback;
+}
+
+/**
+ * Extract YYYY-MM-DD from page names
+ * On the wiki, event page names *should* be in
+ * the format events/YYYY-MM-DD-event-slug
+ */
+function eventDateFromTitle(string $title) {
+	preg_match('/\d{4}-\d{2}-\d{2}/', $title, $matches);
+	if (count($matches) > 0) {
+		return $matches[0];
+	}
+
+	return null;
+}
+
+/**
+ * Add an event to the the list, grouping them
+ * by event name.
+ */
+function addEventToList(array &$events, string $name, string $summary) {
+	$key = eventNameFromSummary($summary, $name);
+	if (!array_key_exists($key, $events)) {
+		$events[$key] = [];
+	}
+
+	$date = eventDateFromTitle($name);
+	$events[$key][$name] = $date;
+}
+
+/**
+ * Convert an array of wiki event slugs and YYYY-MM-DD
+ * dates into an array of links.
+ */
+function buildEventDateLinks(array $event_dates) {
+	$results = [];
+	foreach ($event_dates as $title => $date) {
+		$label = $date;
+		if (!$date) {
+			$label = str_replace('events/', '', $title);
+		}
+
+		$results[] = sprintf('<a href="%s">%s</a>',
+			Config::$wikiBaseURL . pageTitleToURL($title),
+			$label
+		);
+	}
+
+	return $results;
+}
+
+function buildEventNotes(array $events) {
+	$output = '';
+	foreach ($events as $event_name => &$options) {
+		$without_dates = array_filter($options, 'is_null');
+		$with_dates = array_filter($options);
+
+		# sort events with dates, newest first
+		arsort($with_dates);
+
+		# move events without dates to the end
+		$options = $with_dates + $without_dates;
+
+		$links = buildEventDateLinks($options);
+
+		$output .= PHP_EOL . sprintf('<p><b>%s:</b> %s</p>',
+			$event_name,
+			implode(', ', $links)
+		);
+	}
+
+	return $output;
+}
+

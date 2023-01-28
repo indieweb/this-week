@@ -9,7 +9,11 @@
   },
   "autoload": {
     "files": [
-      "config.php"
+      "config.php",
+      "functions.php"
     ]
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^9"
   }
 }
