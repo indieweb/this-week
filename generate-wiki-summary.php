@@ -40,8 +40,12 @@
 	  }
 	}
 
-	uasort($changedPages, function($a, $b){
-		return count($a['changes']) < count($b['changes']);
+	uasort($changedPages, function($a, $b) {
+		if (count($a['changes']) == count($b['changes'])) {
+			return 0;
+		}
+
+		return (count($a['changes']) < count($b['changes'])) ? -1 : 1;
 	});
 	
 	$new = array();
