@@ -15,5 +15,8 @@
   },
   "require-dev": {
     "phpunit/phpunit": "^9"
+  },
+  "scripts": {
+    "tests": "./vendor/bin/phpunit tests"
   }
 }

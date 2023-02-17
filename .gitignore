@@ -2,4 +2,5 @@ vendor
 config.php
 cookies.txt
 mail.log
+tests/wiki-summary-output.html
 
