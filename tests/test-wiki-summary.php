@@ -38,5 +38,5 @@ if (false === $result) {
   die('Could not write to wiki-summary-output.html');
 }
 
-echo 'Results saved to wiki-summary-output.html' . PHP_EOL;
+echo 'Results saved to tests/wiki-summary-output.html' . PHP_EOL;
 
