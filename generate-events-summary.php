@@ -12,6 +12,7 @@ $past = [];
 $future = [];
 $urls = [];
 
+
 if($output) {
 	foreach($eventslist as $event) {
 		if(in_array('h-event', $event['type'])) {
@@ -33,6 +34,7 @@ if($output) {
 		}
 	}
 }
+
 
 
 function format_event($event) {
@@ -148,7 +150,11 @@ function format_event($event) {
 				echo $location;
 			}
 			if($summary) {
-				echo '<div style="font-style: italic" class="p-summary">'.implode("<br>\n",array_map('auto_link', $summary)).'</div>';
+				if(is_string($summary[0])) {
+					echo '<div style="font-style: italic" class="p-summary">'.implode("<br>\n",array_map('auto_link', $summary)).'</div>';
+				} elseif(is_array($summary[0]) && isset($summary[0]['html'])) {
+					echo '<div style="font-style: italic" class="e-summary">'.$summary[0]['html'].'</div>';
+				}
 			}
 			if($photos) {
 				foreach($photos as $photo) {
