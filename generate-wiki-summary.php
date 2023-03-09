@@ -117,7 +117,7 @@
 			
 		} else {
 			if(count($changed) < 10) {
-				if(!preg_match('/^(user|template|mediawiki|category):/i', $title)) {
+				if(!preg_match('/^(user|template|mediawiki|category):/i', $title) && count($page['changes']) > 1) {
 					$authors_str = strtolower(join_with_and($authors));
 			
 					$query = str_replace('&','&amp;',http_build_query(array(
@@ -158,6 +158,8 @@
 <p>From <a href="https://indieweb.org/wiki/index.php?title=Special%3ANewPages&namespace=0">IndieWeb Wiki: New Pages</a>:</p>
 <?= implode("\n", $new) ?>
 <?php endif; ?>
+
+
 
 <?php if(count($changed)): ?>
 <h3 id="changed-wiki-pages">Top Edited Wiki Pages</h3>
