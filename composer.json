@@ -1,4 +1,6 @@
 {
+  "name": "this-week",
+  "description": "Generator scripts for This Week in the IndieWeb newsletter",
   "require": {
     "mf2/mf2": "0.2.*",
     "indieweb/date-formatter": "*",
