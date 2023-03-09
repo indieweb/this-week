@@ -99,8 +99,7 @@
 				}
 
 				addEventToList($eventnotes, $title, $summary);
-				continue;
-			}
+			} else
 
 			// Hide user: and template: pages (only include user pages and other pages that don't begin with user: or template:)
 			if($page['isuser']
@@ -188,7 +187,7 @@
 
 
 <?php if(count($changed)): ?>
-<h3 id="changed-wiki-pages">Top Edited Wiki Pages</h3>
+<h2 id="changed-wiki-pages">Top Edited Wiki Pages</h2>
 <p>From <a href="https://indieweb.org/wiki/index.php?namespace=0&title=Special%3ARecentChanges">IndieWeb Wiki: Recent Changes</a>:</p>
 <ul>
 <?= implode("\n", $changed) ?>
