@@ -1,5 +1,5 @@
 {
-  "name": "this-week",
+  "name": "indieweb/this-week",
   "description": "Generator scripts for This Week in the IndieWeb newsletter",
   "require": {
     "mf2/mf2": "0.2.*",
