@@ -34,13 +34,27 @@ $endDate = $endDate->format('U');
 
 $date = IndieWeb\DateFormatter::format(date('Y-m-d', $startDate), date('Y-m-d', $endDate), false);
 
+$html = '';
+
 ob_start();
 require('generate-header.php');
+$html .= ob_get_clean();
+
+ob_start();
 require('generate-events-summary.php');
+$html .= ob_get_clean();
+
+ob_start();
 require('generate-podcasts.php');
+$html .= ob_get_clean();
+
+ob_start();
 require('generate-indienews.php');
+$html .= ob_get_clean();
+
+ob_start();
 require('generate-wiki-summary.php');
-$html = ob_get_clean();
+$html .= ob_get_clean();
 
 // Write the file that will be used as the source for the RSS feed email
 $tmpfile = sys_get_temp_dir() . '/IndieWebCamp ' . $date . '.html';
