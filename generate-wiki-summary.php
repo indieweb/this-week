@@ -45,7 +45,7 @@
 			return 0;
 		}
 
-		return (count($a['changes']) < count($b['changes'])) ? -1 : 1;
+		return (count($a['changes']) > count($b['changes'])) ? -1 : 1;
 	});
 	
 	$new = array();
