@@ -137,3 +137,25 @@ function join_with_and($array) {
 function e($text) {
   return htmlspecialchars($text);
 }
+
+function tweet_text($text) {
+  
+  $body = http_build_query([
+    'h' => 'entry',
+    'content' => $text,
+  ]);
+  
+  $headers = [
+     'Authorization: Bearer '.Config::$twitterSyndicateToken
+  ];
+
+  $ch = curl_init('https://silopub.p3k.io/micropub');
+  curl_setopt($ch, CURLOPT_POST, true);
+  curl_setopt($ch, CURLOPT_POSTFIELDS, $body);
+  curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+  curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+  $response = curl_exec($ch);
+  
+  return $response;
+}
+
