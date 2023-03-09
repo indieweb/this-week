@@ -3,12 +3,11 @@ use \FeedWriter\RSS2;
 
 chdir(dirname(__FILE__));
 require_once('vendor/autoload.php');
-require_once('functions.php');
 
 //////////////////////////////////////////////////////////////
 // Always snap start/end dates to Friday 3pm
 
-if(array_key_exists(2, $argv)) {
+if(array_key_exists(2, $argv ?? [])) {
   $endDate = new DateTime($argv[2], new DateTimeZone('US/Pacific'));
 } else {
   $endDate = new DateTime();

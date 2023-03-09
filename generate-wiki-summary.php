@@ -40,13 +40,18 @@
 	  }
 	}
 
-	uasort($changedPages, function($a, $b){
-		return count($a['changes']) < count($b['changes']);
+	uasort($changedPages, function($a, $b) {
+		if (count($a['changes']) == count($b['changes'])) {
+			return 0;
+		}
+
+		return (count($a['changes']) < count($b['changes'])) ? -1 : 1;
 	});
 	
 	$new = array();
 	$changed = array();
 	$newpeople = array();
+	$eventnotes = array();
 	$toc = array(
 	  'new' => array(),
 	  'edit' => array()
@@ -80,6 +85,22 @@
 				$page['isuser'] = true;
 			else
 				$page['isuser'] = false;
+
+			$page['is_event_notes'] = false;
+			if (strpos($title, 'events/') === 0) {
+				// Pages starting with `events/` go in a separate section
+				// events/2022-10-26-hwc-pacific
+				$page['is_event_notes'] = true;
+
+				$item = mw_entry($title);
+				$summary = '';
+				if ($item && array_key_exists('summary', $item['properties'])) {
+					$summary = $item['properties']['summary'][0];
+				}
+
+				addEventToList($eventnotes, $title, $summary);
+				continue;
+			}
 
 			// Hide user: and template: pages (only include user pages and other pages that don't begin with user: or template:)
 			if($page['isuser']
@@ -159,6 +180,11 @@
 <?= implode("\n", $new) ?>
 <?php endif; ?>
 
+<?php if(count($eventnotes)): ?>
+<h2 id="new-event-notes">New Event Notes</h2>
+<p>From <a href="https://indieweb.org/wiki/index.php?title=Special%3ANewPages&namespace=0">IndieWeb Wiki: New Pages</a>:</p>
+<?= buildEventNotes($eventnotes) ?>
+<?php endif; ?>
 
 
 <?php if(count($changed)): ?>
