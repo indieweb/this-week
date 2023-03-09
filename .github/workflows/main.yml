@@ -41,5 +41,8 @@ jobs:
     - name: Install dependencies
       run: composer install --prefer-dist --no-progress
 
+    - name: Copy Config
+      run: cp config.template.php config.php
+
     - name: Run test suite
       run: ./vendor/bin/phpunit
