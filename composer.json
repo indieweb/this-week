@@ -5,7 +5,7 @@
     "mf2/mf2": "0.2.*",
     "indieweb/date-formatter": "^0.3",
     "mibe/feedwriter": "^1.1",
-    "tantek/cassis": "dev-master",
+    "tantek/cassis": "^0.2",
     "p3k/multipart": "^0.2",
     "p3k/utils": "^1.0"
   },

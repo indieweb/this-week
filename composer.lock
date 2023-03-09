@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7f27f1aab3af01165d175c846cbb7666",
+    "content-hash": "a35ad0a9317d46f24abf610578d54f98",
     "packages": [
         {
             "name": "indieweb/date-formatter",
@@ -307,19 +307,18 @@
         },
         {
             "name": "tantek/cassis",
-            "version": "dev-master",
+            "version": "v0.2.16895",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tantek/cassis.git",
-                "reference": "53a865a00bb5d87b2515ff0261a6bd6c6e40c320"
+                "reference": "357e30ad12017b4d67cac5f4400e8f371cd2f504"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tantek/cassis/zipball/53a865a00bb5d87b2515ff0261a6bd6c6e40c320",
-                "reference": "53a865a00bb5d87b2515ff0261a6bd6c6e40c320",
+                "url": "https://api.github.com/repos/tantek/cassis/zipball/357e30ad12017b4d67cac5f4400e8f371cd2f504",
+                "reference": "357e30ad12017b4d67cac5f4400e8f371cd2f504",
                 "shasum": ""
             },
-            "default-branch": true,
             "type": "library",
             "autoload": {
                 "files": [
@@ -331,7 +330,7 @@
                 "issues": "https://github.com/tantek/cassis/issues",
                 "source": "https://github.com/tantek/cassis/tree/master"
             },
-            "time": "2023-02-10T02:51:42+00:00"
+            "time": "2016-04-04T15:31:04+00:00"
         }
     ],
     "packages-dev": [
@@ -2068,9 +2067,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "tantek/cassis": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
