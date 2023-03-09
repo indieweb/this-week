@@ -40,7 +40,7 @@ if($output) {
 function format_event($event) {
   global $endDate;
   
-	ob_start();
+	$html = '';
 
 	$url = array_key_exists('url', $event['properties']) ? $event['properties']['url'][0] : false;
 	$name = array_key_exists('name', $event['properties']) ? $event['properties']['name'][0] : false;
@@ -121,56 +121,56 @@ function format_event($event) {
 	}
 
 	if($name) {
-  	echo "\n\n";
-		echo '<div style="margin-bottom: 1em;" class="h-event">';
-			echo '<div style="font-size: 1.3em; font-weight: bold;" class="p-name">' . ($url ? '<a href="'.$url.'" class="u-url">'.e($name).'</a>' : e($name)) . '</div>' . "\n";
+  	$html .= "\n\n";
+		$html .= '<div style="margin-bottom: 1em;" class="h-event">';
+			$html .= '<div style="font-size: 1.3em; font-weight: bold;" class="p-name">' . ($url ? '<a href="'.$url.'" class="u-url">'.e($name).'</a>' : e($name)) . '</div>' . "\n";
 			if($start) {
 				try {
 					$start = new DateTime($start);
 					if($end) $end = new DateTime($end);
 
 					if($end && $start->format('l, F j') != $end->format('l, F j')) {
-  					echo '<time class="dt-start" datetime="'.$start->format('c').'">';
-						echo $start->format('F j');
-						echo '</time> - <time class="dt-end" datetime="'.$end->format('c').'">';
-						echo $end->format('F j');
-						echo '</time>';
+  					$html .= '<time class="dt-start" datetime="'.$start->format('c').'">';
+						$html .= $start->format('F j');
+						$html .= '</time> - <time class="dt-end" datetime="'.$end->format('c').'">';
+						$html .= $end->format('F j');
+						$html .= '</time>';
 					} else {
-  					echo '<time class="dt-start" datetime="'.$start->format('c').'">';
-						echo $start->format('l, F j');
+  					$html .= '<time class="dt-start" datetime="'.$start->format('c').'">';
+						$html .= $start->format('l, F j');
 						if($start->format('H:i:s') != '00:00:00')
-						  echo ' at ' . $start->format('g:ia');
-						echo '</time>';
+						  $html .= ' at ' . $start->format('g:ia');
+						$html .= '</time>';
 					}
-					echo '<br>'."\n";
+					$html .= '<br>'."\n";
 				} catch(Exception $e) {
 				}
 			}
 			if($location) {
-				echo $location;
+				$html .= $location;
 			}
 			if($summary) {
 				if(is_string($summary[0])) {
-					echo '<div style="font-style: italic" class="p-summary">'.implode("<br>\n",array_map('auto_link', $summary)).'</div>';
+					$html .= '<div style="font-style: italic" class="p-summary">'.implode("<br>\n",array_map('auto_link', $summary)).'</div>';
 				} elseif(is_array($summary[0]) && isset($summary[0]['html'])) {
-					echo '<div style="font-style: italic" class="e-summary">'.$summary[0]['html'].'</div>';
+					$html .= '<div style="font-style: italic" class="e-summary">'.$summary[0]['html'].'</div>';
 				}
 			}
 			if($photos) {
 				foreach($photos as $photo) {
   				$filename = download_photo($photo, $endDate);
   				if($filename) {
-            echo '<div><img src="'.Config::$baseURL.'images/'.$filename.'" style="width:100%" class="u-photo"></div>';
+            $html .= '<div><img src="'.Config::$baseURL.'images/'.$filename.'" style="width:100%" class="u-photo"></div>';
           } else {
-            echo '<!-- failed to download photo, is it over 5mb? '.htmlspecialchars($photo).' -->';
+            $html .= '<!-- failed to download photo, is it over 5mb? '.htmlspecialchars($photo).' -->';
           }
 				}
 			}
-		echo '</div>';
-		echo "\n";
+		$html .= '</div>';
+		$html .= "\n";
 	}
 	
-	return ob_get_clean();
+	return $html;
 }
 
 if(count($past)) {
