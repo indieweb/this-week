@@ -13,7 +13,7 @@ $future = [];
 $urls = [];
 
 
-if($output) {
+if($eventslist) {
 	foreach($eventslist as $event) {
 		if(in_array('h-event', $event['type'])) {
 			if(!in_array($event['properties']['url'][0], $urls)) {
@@ -34,6 +34,24 @@ if($output) {
 		}
 	}
 }
+
+if(count($past)) {
+	echo '<h2 id="recent-events">Recent Events</h2>';
+	echo '<p>From <a href="https://events.indieweb.org/archive">events.indieweb.org/archive</a>:</p>';
+	foreach($past as $event) {
+		echo format_event($event);
+	}
+}
+
+if(count($future)) {
+	echo '<h2 id="upcoming-events">Upcoming Events</h2>';
+	echo '<p>From <a href="https://events.indieweb.org/">events.indieweb.org</a>:</p>';
+	foreach($future as $event) {
+		echo format_event($event);
+	}
+}
+
+
 
 
 
@@ -171,21 +189,5 @@ function format_event($event) {
 	}
 	
 	return $html;
-}
-
-if(count($past)) {
-	echo '<h2 id="recent-events">Recent Events</h2>';
-	echo '<p>From <a href="https://events.indieweb.org/archive">events.indieweb.org/archive</a>:</p>';
-	foreach($past as $event) {
-		echo format_event($event);
-	}
-}
-
-if(count($future)) {
-	echo '<h2 id="upcoming-events">Upcoming Events</h2>';
-	echo '<p>From <a href="https://events.indieweb.org/">events.indieweb.org</a>:</p>';
-	foreach($future as $event) {
-		echo format_event($event);
-	}
 }
 
