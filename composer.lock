@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "65161ffe3ee007bbcd70aad674e6d9bf",
+    "content-hash": "7f27f1aab3af01165d175c846cbb7666",
     "packages": [
         {
             "name": "indieweb/date-formatter",

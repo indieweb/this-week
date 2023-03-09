@@ -3,10 +3,10 @@
   "description": "Generator scripts for This Week in the IndieWeb newsletter",
   "require": {
     "mf2/mf2": "0.2.*",
-    "indieweb/date-formatter": "*",
-    "mibe/feedwriter": "*",
+    "indieweb/date-formatter": "^0.3",
+    "mibe/feedwriter": "^1.1",
     "tantek/cassis": "dev-master",
-    "p3k/multipart": "*",
+    "p3k/multipart": "^0.2",
     "p3k/utils": "^1.0"
   },
   "autoload": {
@@ -15,6 +15,7 @@
       "functions.php"
     ]
   },
+  "license": "Apache-2.0",
   "require-dev": {
     "phpunit/phpunit": "^9"
   },
