@@ -40,7 +40,7 @@ foreach($sources as $u) {
 }
 
 if(count($submissions)) {
-	echo '<h2 id="podcasts">Podcasts</h2>';
+	echo '<h2 id="podcasts">What We’re Listening To</h2>';
   	echo '<p>From <a href="https://huffduffer.com/tags/indieweb">huffduffer.com/tags/indieweb</a>:</p>'; 
 	echo implode("\n", $submissions);
 }
