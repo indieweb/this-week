@@ -2,11 +2,13 @@
 	
 $sources = ['https://huffduffer.com/tags/indieweb'];
 
+$podcasts = [];
 $submissions = [];
 
 foreach($sources as $u) {
 	$feed = parse_page($u);
 	$entries = $feed['items'][0]['children'];
+  
 	foreach($entries as $entry) {
   	
   	# huffduffer markup has published date in the p-author h-card, oops
@@ -18,25 +20,32 @@ foreach($sources as $u) {
 		if(strtotime($published) >= $startDate) {
 			$name = $entry['properties']['name'][0];
 			$url = $entry['properties']['url'][0];
+      $audio = $entry['properties']['audio'][0];
 			$published = new DateTime($published);
 
       #$content = $entry['properties']['content'][0]['html'];
-			
-			ob_start();
-			echo '<div style="margin-bottom: 1em;" class="h-entry">';
-		    if($name)
-					echo '<div style="font-size:1.3em;font-weight:bold;"><a href="'.$url.'" class="u-url p-name">'.e($name).'</a></div>';
-				else
-				  echo '<a href="'.$url.'" class="u-url">'.$url.'</a>';
-				/*
-				if($content) {
-					echo '<div class="e-content">'.$content.'</div>';
-				}
-				*/
-			echo '</div>'."\n";
-			$submissions[] = ob_get_clean();	
+			$podcasts[$audio] = [
+        'url' => $url,
+        'name' => $name,
+      ];
 		}
 	}
+}
+
+foreach($podcasts as $podcast) {
+	ob_start();
+	echo '<div style="margin-bottom: 1em;" class="h-entry">';
+    if($podcast['name'])
+			echo '<div style="font-size:1.3em;font-weight:bold;"><a href="'.$podcast['url'].'" class="u-url p-name">'.e($podcast['name']).'</a></div>';
+		else
+		  echo '<a href="'.$podcast['url'].'" class="u-url">'.$podcast['url'].'</a>';
+		/*
+		if($content) {
+			echo '<div class="e-content">'.$content.'</div>';
+		}
+		*/
+	echo '</div>'."\n";
+	$submissions[] = ob_get_clean();	
 }
 
 if(count($submissions)) {
