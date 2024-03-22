@@ -128,10 +128,13 @@ function join_with_and($array) {
 	
 	if(count($array) == 1)
 	  return array_pop($array);
-	
+
+	if(count($array) == 2)
+	  return implode(' and ', $array);
+
 	$last = array_pop($array);
 	
-	return implode(', ', $array) . ' and ' . $last;
+	return implode(', ', $array) . ', and ' . $last;
 }
 
 function e($text) {
