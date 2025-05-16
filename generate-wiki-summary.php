@@ -103,7 +103,7 @@
 
 			// Hide user: and template: pages (only include user pages and other pages that don't begin with user: or template:)
 			if($page['isuser']
-			 || (!$page['isuser'] && !preg_match('/^(user|template|category):/i', $title))) {
+			 || (!$page['isuser'] && !preg_match('/^(user|template|category|mediawiki):/i', $title))) {
 			
 				echo '<h3><a href="' . Config::$wikiBaseURL . pageTitleToURL($title) . '">' . $title . '</a></h3>';
 	
