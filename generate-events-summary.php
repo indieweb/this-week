@@ -18,11 +18,19 @@ if($eventslist) {
 		if(in_array('h-event', $event['type'])) {
 			if(!in_array($event['properties']['url'][0], $urls)) {
 				if(array_key_exists('start', $event['properties'])) {
-  				# If there is an end date, use that instead of the start date
-					if(array_key_exists('end', $event['properties']) && strtotime($event['properties']['end'][0]) !== false)
+	  				# If there is an end date, use that instead of the start date
+					if(array_key_exists('end', $event['properties']) && strtotime($event['properties']['end'][0]) !== false) {
 						$eventDate = strtotime($event['properties']['end'][0]);
-					else
+					} else {
 						$eventDate = strtotime($event['properties']['start'][0]);
+					}
+					
+					# Ignore postponed and cancelled events
+					$name = $event['properties']['name'][0];
+					if(stripos($name, 'POSTPONED') || stripos($name, 'CANCELLED')) {
+						continue;
+					}
+
 					if($eventDate >= $startDate && $eventDate <= $endDate) {
 						$past[] = $event;
 					} elseif($eventDate >= $endDate && $eventDate <= $endDate + 86400*60) {
